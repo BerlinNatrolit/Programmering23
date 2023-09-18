@@ -5,6 +5,7 @@ doors = ["north", "south", "east"]
 
 # Welcome screen
 print("Hello and welcome to Jimmys Berlin adventure")
+print("This game will blow you away!!!!!!!!!!!!!!!!")
 print("********************************************")
 print()
 
