@@ -1,5 +1,5 @@
 # Define a room
-description = "big room with chandeler hanging from the roof, and paintings all along the wall."
+description = "very big room with chandeler hanging from the roof, and paintings all along the wall."
 doors = ["north", "south", "east"]
 
 
