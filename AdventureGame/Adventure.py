@@ -1,29 +1,35 @@
-# Define a room
-description = "very big room with chandeler hanging from the roof, and paintings all along the wall."
-doors = ["north", "south", "east"]
+# Display a welcome screen for the user
+def welcomeScreen():
+    # Welcome screen
+    print("Hello and welcome to Jimmys Berlin adventure")
+    print("This game will blow you away!!!!!!!!!!!!!!!!")
+    print("********************************************")
+    print()
 
-
-# Welcome screen
-print("Hello and welcome to Jimmys Berlin adventure")
-print("This game will blow you away!!!!!!!!!!!!!!!!")
-print("********************************************")
-print()
-
-#Main loop/Gameloop
-run = True
-while run:
-    # Print room
+# Print out a nicely formatted description and view of the room.
+def displayRoom(description, doors, items):
+    # Print description
     print("You are standing in a " + description)
-    print("There are doors to your:  ")
     
+    # Print out items
+    print("Items you see scattered around the room: ")
+    # Format and print out all the directions that are available in the room.
+    for item in items:
+        print(item)
+    print()
+    
+    #print doors
+    print("There are doors to your: ", end="")
     # Format and print out all the directions that are available in the room.
     directions = ""
     for direction in doors:
         directions = directions + ", " + direction
     directions = directions[2:]
     print(directions)
+    print()
     
-    # Print menu
+# Display the menu for the user.
+def displayMenu():
     print("What do you want to do?")
     print("1. Go north")
     print("2. Go south")
@@ -31,18 +37,51 @@ while run:
     print("4. Go east")
     print("5. look")
     print("0. Quit game")
+
+def lookingCloser(closer):
+    print("When you are looking closer in the room, you can see:")
+    print(closer)
+
+# Ask user for input
+def fetchInput():
+    ans = input("Please enter your choice: ")
+    if ans.isdigit():							# True om ans är en siffra. False om det är någonting annat.
+        if int(ans) >= 0 and int(ans) < 6:		# Kollar om ans är mellan 0 och 5
+            return int(ans)
+    return -1									# Returnera -1 om något av de övriga villkoren är falska. 
+                                                # Så vet vi att något är fel om det returneras negativa tal från funktionen.
+
+
+# Define a room
+description1 = "very big room with chandeler hanging from the roof, and paintings all along the wall."
+doors1 = ["north", "south", "east"]
+items1 = ["Sword", "Bottle", "Chest", "Light saber - A weapong for a more civilized time"]
+closer1 = "the light saber has a purple tint to it."
+
+###############################
+# Main program
+
+welcomeScreen()
+
+#Main loop/Gameloop
+run = True
+while run:
+    # Display the room you are in.
+    displayRoom(description1, doors1, items1)
+    
+    # Display main menu for user.
+    displayMenu()
     
     # Ask user for input
-    choice = input("Please enter your choice: ")
+    choice = fetchInput()
     
-    #Sanitize user input
-    if not choice.isnumeric():
+    #Check user input
+    if choice == -1:
         print("Sorry! Did not understand what you meant? Please give a number.")
         continue
     
     # Do something based on what the user asks for.
     # if the user enters something you dont understand, let him know.
-    choice = int(choice)
     if choice == 0:
         run = False
     elif choice == 1:
@@ -54,6 +93,6 @@ while run:
     elif choice == 4:
         print("you are going west")
     elif choice == 5:
-        print("you are looking really hard, but cant find anything new")
+        lookingCloser(closer1)
     else:
         print("sorry, you asked for something i cannot do!")
