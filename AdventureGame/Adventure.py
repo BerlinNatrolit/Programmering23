@@ -5,11 +5,13 @@ def welcomeScreen():
     print("This game will blow you away!!!!!!!!!!!!!!!!")
     print("********************************************")
     print()
+    print("You just ran into a big mansion after running through a haunted forest."
+    print()
 
 # Print out a nicely formatted description and view of the room.
 def displayRoom(description, doors, items):
     # Print description
-    print("You are standing in a " + description)
+    print(description)
     
     # Print out items
     print("Items you see scattered around the room: ")
@@ -51,10 +53,9 @@ def fetchInput():
     return -1									# Returnera -1 om något av de övriga villkoren är falska. 
                                                 # Så vet vi att något är fel om det returneras negativa tal från funktionen.
 
-
 # Define a room
-description1 = "very big room with chandeler hanging from the roof, and paintings all along the wall."
-doors1 = ["north", "south", "east"]
+description1 = "You are standing in a long hallway with chandelers hanging from the roof, and paintings all along the wall. You can see doors along the side, and one big door straight forward."
+doors1 = ["left", "right", "forward", "back"]
 items1 = ["Sword", "Bottle", "Chest", "Light saber - A weapong for a more civilized time"]
 closer1 = "the light saber has a purple tint to it."
 
