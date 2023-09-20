@@ -1,3 +1,5 @@
+from Room import Room
+
 # Display a welcome screen for the user
 def welcomeScreen():
     # Welcome screen
@@ -5,31 +7,10 @@ def welcomeScreen():
     print("This game will blow you away!!!!!!!!!!!!!!!!")
     print("********************************************")
     print()
-    print("You just ran into a big mansion after running through a haunted forest."
+    print("You just ran into a big mansion after running through a haunted forest.")
     print()
 
-# Print out a nicely formatted description and view of the room.
-def displayRoom(description, doors, items):
-    # Print description
-    print(description)
-    
-    # Print out items
-    print("Items you see scattered around the room: ")
-    # Format and print out all the directions that are available in the room.
-    for item in items:
-        print(item)
-    print()
-    
-    #print doors
-    print("There are doors to your: ", end="")
-    # Format and print out all the directions that are available in the room.
-    directions = ""
-    for direction in doors:
-        directions = directions + ", " + direction
-    directions = directions[2:]
-    print(directions)
-    print()
-    
+  
 # Display the menu for the user.
 def displayMenu():
     print("What do you want to do?")
@@ -40,9 +21,6 @@ def displayMenu():
     print("5. look")
     print("0. Quit game")
 
-def lookingCloser(closer):
-    print("When you are looking closer in the room, you can see:")
-    print(closer)
 
 # Ask user for input
 def fetchInput():
@@ -54,10 +32,22 @@ def fetchInput():
                                                 # Så vet vi att något är fel om det returneras negativa tal från funktionen.
 
 # Define a room
-description1 = "You are standing in a long hallway with chandelers hanging from the roof, and paintings all along the wall. You can see doors along the side, and one big door straight forward."
-doors1 = ["left", "right", "forward", "back"]
-items1 = ["Sword", "Bottle", "Chest", "Light saber - A weapong for a more civilized time"]
-closer1 = "the light saber has a purple tint to it."
+hallway = Room("Hallway")
+hallway.setDescription("You are standing in a long hallway with chandelers hanging from the roof, and paintings all along the wall. You can see doors along the side, and one big door straight forward.")
+hallway.addDoor("left")
+hallway.addDoor("right")
+hallway.addDoor("forward")
+hallway.addDoor("back")
+hallway.addItem("Sword")
+hallway.addItem("Bottle")
+hallway.addItem("Chest")
+hallway.addItem("Light saber - A weapon for a more civilized time")
+hallway.setInspect("the light saber has a purple tint to it.")
+
+banquet = Room("Banquet Hall")
+banquet.setDescription("You are in a huge banquet hall, and are baffeled by the table in the middle surrounded by chairs")
+banquet.addDoor("back")
+banquet.setInspect("Upon further investigation it looks like this hoom has not been used for hundreds of years")
 
 ###############################
 # Main program
@@ -68,7 +58,8 @@ welcomeScreen()
 run = True
 while run:
     # Display the room you are in.
-    displayRoom(description1, doors1, items1)
+    print(banquet.toString())
+    #displayRoom(description1, doors1, items1)
     
     # Display main menu for user.
     displayMenu()
@@ -94,6 +85,6 @@ while run:
     elif choice == 4:
         print("you are going west")
     elif choice == 5:
-        lookingCloser(closer1)
+        banquet.lookCloser()
     else:
         print("sorry, you asked for something i cannot do!")
