@@ -34,7 +34,7 @@ class Room:
         
         # Add all the items
         for item in self.items:
-            response = response + item + "\n"
+            response = response + item.getName() + ": " + item.getDescription() + "\n"
         response = response + "\n"
         
         # Print all the doors

@@ -1,4 +1,5 @@
 from Room import Room
+from Item import Item
 
 # Display a welcome screen for the user
 def welcomeScreen():
@@ -14,10 +15,10 @@ def welcomeScreen():
 # Display the menu for the user.
 def displayMenu():
     print("What do you want to do?")
-    print("1. Go north")
-    print("2. Go south")
-    print("3. Go west")
-    print("4. Go east")
+    print("1. Go forward")
+    print("2. Go backward")
+    print("3. Go left")
+    print("4. Go right")
     print("5. look")
     print("0. Quit game")
 
@@ -31,6 +32,14 @@ def fetchInput():
     return -1									# Returnera -1 om något av de övriga villkoren är falska. 
                                                 # Så vet vi att något är fel om det returneras negativa tal från funktionen.
 
+
+###
+# Define environment
+
+sword = Item("Sword", "This is a wooden sword")
+chest = Item("Chest", "Big chest")
+lsword = Item("Light saber", "A weapon for a more civilized time")
+
 # Define a room
 hallway = Room("Hallway")
 hallway.setDescription("You are standing in a long hallway with chandelers hanging from the roof, and paintings all along the wall. You can see doors along the side, and one big door straight forward.")
@@ -38,10 +47,10 @@ hallway.addDoor("left")
 hallway.addDoor("right")
 hallway.addDoor("forward")
 hallway.addDoor("back")
-hallway.addItem("Sword")
-hallway.addItem("Bottle")
-hallway.addItem("Chest")
-hallway.addItem("Light saber - A weapon for a more civilized time")
+hallway.addItem(sword)
+hallway.addItem(chest)
+hallway.addItem(lsword)
+
 hallway.setInspect("the light saber has a purple tint to it.")
 
 banquet = Room("Banquet Hall")
@@ -52,13 +61,16 @@ banquet.setInspect("Upon further investigation it looks like this hoom has not b
 ###############################
 # Main program
 
+roomNumber = 0
+world = [hallway, banquet]
+
 welcomeScreen()
 
 #Main loop/Gameloop
 run = True
 while run:
     # Display the room you are in.
-    print(banquet.toString())
+    print(world[roomNumber].toString())
     #displayRoom(description1, doors1, items1)
     
     # Display main menu for user.
@@ -77,14 +89,22 @@ while run:
     if choice == 0:
         run = False
     elif choice == 1:
-        print("you are going north")
+        print("you are going forward")
+        if roomNumber < len(world):
+            roomNumber = roomNumber+1
+        else:
+            print("There is no door there")
     elif choice == 2:
-        print("you are going south")
+        print("you are going backward")
+        if roomNumber > 0:
+            roomNumber = roomNumber-1
+        else:
+            print("There is no door there")
     elif choice == 3:
-        print("you are going east")
+        print("you are going left")
     elif choice == 4:
-        print("you are going west")
+        print("you are going right")
     elif choice == 5:
-        banquet.lookCloser()
+        world[roomNumber].lookCloser()
     else:
         print("sorry, you asked for something i cannot do!")
