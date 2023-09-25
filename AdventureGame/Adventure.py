@@ -40,29 +40,53 @@ sword = Item("Sword", "This is a wooden sword")
 chest = Item("Chest", "Big chest")
 lsword = Item("Light saber", "A weapon for a more civilized time")
 
-# Define a room
+# Define room
 hallway = Room("Hallway")
 hallway.setDescription("You are standing in a long hallway with chandelers hanging from the roof, and paintings all along the wall. You can see doors along the side, and one big door straight forward.")
-hallway.addDoor("left")
-hallway.addDoor("right")
-hallway.addDoor("forward")
-hallway.addDoor("back")
 hallway.addItem(sword)
 hallway.addItem(chest)
 hallway.addItem(lsword)
-
 hallway.setInspect("the light saber has a purple tint to it.")
 
 banquet = Room("Banquet Hall")
 banquet.setDescription("You are in a huge banquet hall, and are baffeled by the table in the middle surrounded by chairs")
-banquet.addDoor("back")
 banquet.setInspect("Upon further investigation it looks like this hoom has not been used for hundreds of years")
+
+basement = Room("Basement")
+basement.setDescription("a damp and dark place.")
+basement.setInspect("Rats are crawling all around the place.")
+
+living_room = Room("living room")
+living_room.setDescription("A beautiful and cosy living room")
+living_room.setInspect("Everything is in blue and red")
+
+
+hallway.addDoor("right")
+hallway.addDoor("forward")
+banquet.addDoor("back")
+banquet.addDoor("right")
+basement.addDoor("left")
+basement.addDoor("back")
+living_room.addDoor("left")
+living_room.addDoor("forward")
+
+
+
+
+# Map structure.
+"""
+banquet     basement
+
+hallway     living room
+"""
+# Define map
+world = [[banquet, basement],[hallway, living_room]]
+# Where is the player currently in the world?=
+playerx = 0
+playery = 1
 
 ###############################
 # Main program
-
-roomNumber = 0
-world = [hallway, banquet]
 
 welcomeScreen()
 
@@ -70,8 +94,8 @@ welcomeScreen()
 run = True
 while run:
     # Display the room you are in.
-    print(world[roomNumber].toString())
-    #displayRoom(description1, doors1, items1)
+    print("playery, playerx: " + str(playery) + " " + str(playerx))
+    print(world[playery][playerx].toString())
     
     # Display main menu for user.
     displayMenu()
@@ -90,21 +114,29 @@ while run:
         run = False
     elif choice == 1:
         print("you are going forward")
-        if roomNumber < len(world):
-            roomNumber = roomNumber+1
+        if playery > 0:
+            playery = playery - 1
         else:
             print("There is no door there")
     elif choice == 2:
-        print("you are going backward")
-        if roomNumber > 0:
-            roomNumber = roomNumber-1
+        print("you are going ")
+        if playery < len(world):
+            playery = playery+1
         else:
             print("There is no door there")
     elif choice == 3:
         print("you are going left")
+        if playerx > 0:
+            playerx = playerx-1
+        else:
+            print("There is no door there")
     elif choice == 4:
         print("you are going right")
+        if playerx < len(world[playery]):
+            playerx = playerx + 1
+        else:
+            print("There is no door there")
     elif choice == 5:
-        world[roomNumber].lookCloser()
+        world[playery][playerx].lookCloser()
     else:
         print("sorry, you asked for something i cannot do!")
